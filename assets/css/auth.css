@@ -1,0 +1,17 @@
+
+body{
+   /* background-image: url('https://img.freepik.com/premium-vector/white-simple-abstract-wallpaper_393744-50.jpg?w=2000') !important; /* Add your image URL here */ 
+   background: linear-gradient(to bottom, #000060 0%, #2971ff 100%);
+    background-size: cover !important; /* Ensure the background image covers the entire card */
+    background-position: center !important; /* Center the background image */
+    background-repeat: no-repeat !important; /* Prevent image repetition */
+    height:100vh;
+  
+}
+
+/***.card-body {
+    background-image: url('') !important; /* Add your image URL here 
+    background-size: cover !important; /* Ensure the background image covers the entire card 
+    background-repeat: no-repeat !important; /* Prevent image repetition 
+}***\
+

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Profile Image</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .prev-btn-container {
+            text-align: left;
+        }
+        .image-preview-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .image-preview {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ddd;
+            background-color: #f0f0f0; /* Light background color for visibility */
+            background-size: cover;
+            background-position: center;
+        }
+        .remove-file-btn {
+            margin-left: 10px;
+            background: rgb(220,220,220);
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            position: absolute;
+            right: -25px;
+            top: 3px;
+            display: none;
+        }
+        .upload-image-container {
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div id="formContainer" class="col-sm-9 col-md-7 col-lg-6 mx-auto">
+            <div class="card border-0 shadow rounded-3 my-5">
+                <div class="card-body p-4 p-sm-5">
+                    <!-- Upload Files Form -->
+                    <div id="uploadFormWrapper">
+                        <h5 class="card-title text-center mb-5 fw-light fs-5">Upload Profile Image</h5>
+                        <form id="uploadProfileForm" method="post" enctype="multipart/form-data">
+                            <!-- Repopulated Fields -->
+                            <input type="text" id="firstName" name="firstName" class="form-control mb-3" placeholder="First Name">
+                            <input type="text" id="middleName" name="middleName" class="form-control mb-3" placeholder="Middle Name">
+                            <input type="text" id="lastName" name="lastName" class="form-control mb-3" placeholder="Last Name">
+                            <input type="text" id="address" name="address" class="form-control mb-3" placeholder="Address">
+                            <input type="date" id="birthdate" name="birthdate" class="form-control mb-3">
+                            <input type="text" id="phoneNo" name="phoneNo" class="form-control mb-3" placeholder="Phone Number">
+                            <input type="text" id="departmentOffice" name="departmentOffice" class="form-control mb-3" placeholder="Department/Office">
+                            <input type="text" id="position" name="position" class="form-control mb-3" placeholder="Position">
+
+                            <div class="form mb-3 upload-image-container">
+                                <input type="file" class="form-control" id="fileUpload" name="fileUpload" accept="image/*" onchange="previewImage(event)">
+                                <button type="button" class="remove-file-btn" onclick="removeFile()">X</button>
+                            </div>
+                            <div class="image-preview-container">
+                                <img id="imagePreview" class="image-preview" src="placeholder-image.jpg" alt="">
+                            </div>
+                            <div class="prev-btn-container mb-3">
+                                <a href="user_profile.php"><button class="btn btn-secondary text-uppercase fw-bold" type="button">Prev</button></a>
+                            </div>
+                            <div class="d-grid next-btn-container">
+                                <button class="btn btn-primary text-uppercase fw-bold" onclick="confirmSubmit(event)" type="button">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function previewImage(event) {
+        const input = event.target;
+        const preview = document.getElementById('imagePreview');
+        const removeBtn = document.querySelector('.remove-file-btn');
+
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const imageDataUrl = e.target.result;
+                preview.src = imageDataUrl;
+                preview.style.display = 'block';
+                removeBtn.style.display = 'inline-block'; // Show the remove button
+
+                // Save the image data URL to local storage
+                localStorage.setItem('imagePreview', imageDataUrl);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            preview.src = 'placeholder-image.jpg';
+            preview.style.display = 'block';
+            removeBtn.style.display = 'none';
+        }
+    }
+
+    function removeFile() {
+        var imageUpload = document.getElementById('fileUpload');
+        var imagePreview = document.getElementById('imagePreview');
+        var removeBtn = document.querySelector('.remove-file-btn');
+
+        imageUpload.value = '';
+        imagePreview.src = 'placeholder-image.jpg';
+        removeBtn.style.display = 'none';
+
+        // Clear the saved image from local storage
+        localStorage.removeItem('imagePreview');
+    }
+
+    function confirmSubmit(event) {
+        event.preventDefault();
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you want to save this file?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, save it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Save form data to local storage
+                saveFormData();
+
+                // Check if data was saved
+                console.log('Form data after save:', JSON.parse(localStorage.getItem('formData'))); // Debugging line
+
+                // Redirect to summary page
+                // window.location.href = 'summary.php'; // Uncomment and set your summary page URL
+            }
+        });
+    }
+
+    function saveFormData() {
+        const formData = {
+            firstName: document.getElementById('firstName').value || '',
+            middleName: document.getElementById('middleName').value || '',
+            lastName: document.getElementById('lastName').value || '',
+            address: document.getElementById('address').value || '',
+            birthdate: document.getElementById('birthdate').value || '',
+            phoneNo: document.getElementById('phoneNo').value || '',
+            departmentOffice: document.getElementById('departmentOffice').value || '',
+            position: document.getElementById('position').value || '',
+            image: document.getElementById('imagePreview').src || '',
+        };
+
+        console.log('Saving form data:', formData); // Debugging line
+
+        localStorage.setItem('formData', JSON.stringify(formData));
+    }
+
+    window.onload = function() {
+        // Load saved image from localStorage
+        const savedImage = localStorage.getItem('imagePreview');
+        if (savedImage) {
+            document.getElementById('imagePreview').src = savedImage;
+            document.querySelector('.remove-file-btn').style.display = 'inline-block';
+        }
+
+        // Load saved form data from localStorage
+        const savedFormData = localStorage.getItem('formData');
+        if (savedFormData) {
+            const formData = JSON.parse(savedFormData);
+            document.getElementById('firstName').value = formData.firstName || '';
+            document.getElementById('middleName').value = formData.middleName || '';
+            document.getElementById('lastName').value = formData.lastName || '';
+            document.getElementById('address').value = formData.address || '';
+            document.getElementById('birthdate').value = formData.birthdate || '';
+            document.getElementById('phoneNo').value = formData.phoneNo || '';
+            document.getElementById('departmentOffice').value = formData.departmentOffice || '';
+            document.getElementById('position').value = formData.position || '';
+        }
+    }
+</script>
+
+<!-- Sweet Alert 2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>

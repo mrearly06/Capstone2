@@ -1,0 +1,130 @@
+/* Sidebar styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 250px; /* Default sidebar width */
+    background-color: #343a40;
+    color: #fff;
+    transition: all 0.3s ease;
+    overflow-y: auto;
+    z-index: 99;
+}
+
+.main-content {
+    margin-left: 250px; /* Matches the sidebar width */
+    transition: margin-left 0.3s ease;
+    background-color:#fff;
+    height: 100vh;
+    overflow-x: hidden; /* Prevent horizontal overflow */
+    padding: 20px;
+    display: flex;
+    align-items: center;
+
+}
+
+/* Sidebar collapsed state */
+.sidebar.collapsed {
+    width: 70px; /* Reduced width when collapsed */
+}
+
+.sidebar.collapsed .sidebar-text {
+    display: none; /* Hide text when collapsed */
+}
+
+.sidebar.collapsed #sidebarTitle {
+    display: none; /* Hide the title when collapsed */
+}
+
+.main-content.collapsed {
+    margin-left: 70px; /* Matches the collapsed sidebar width */
+}
+
+/* Adjust sidebar link styles */
+.sidebar .nav-link {
+    color: #fff;
+    padding: 10px 15px; /* Adjust padding for a better look */
+    display: flex;
+    align-items: center;
+}
+.sidebar .nav-link i {
+    margin-right: 10px; /* Space between icon and text */
+}
+.sidebar .nav-link:hover {
+    background-color: #495057;
+    color: #fff;
+}
+.sidebar .nav-item.active .nav-link {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* Sidebar title styling */
+.title-logo {
+    background-color: #3e4348;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.title-logo img {
+    margin-right: 10px;
+}
+.title-logo h4 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+/* Collapsible submenu styles */
+.collapse .nav-link {
+    padding-left: 30px; /* Indent for sub-items */
+}
+
+/* Styling for collapsible submenus */
+.sidebar .nav-item .collapse {
+    background-color: #343a40; /* Same color as the sidebar */
+}
+
+/* Transition effect for collapse */
+.collapse.show {
+    display: block;
+    transition: all 0.5s ease;
+}
+
+/* Make the entire card clickable */
+.sidebar .nav-item {
+    cursor: pointer;
+}
+
+/* Custom scrollbar for the sidebar */
+.sidebar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+/* Collapsed sidebar adjustments for icons */
+.sidebar.collapsed .nav-link i {
+    margin: 0; /* Remove the space between icon and text when collapsed */
+    text-align: center;
+    width: 100%; /* Make the icon centered */
+}
+
+/* Optional: Darken background for sidebar */
+body {
+    background-color: #fff; /* Light background for contrast */
+}
+
+/* Optional: Adjust button for sidebar toggle */
+    .index-content {
+        margin-top: 0 !important;
+    }
+    
