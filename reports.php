@@ -44,20 +44,27 @@ $totalCosts_json = json_encode(array_reverse($totalCosts));
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Monthly Asset Report</title>
 
+  
     <!-- Custom Styles -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
     <style>
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 250px;
-            background-color: #343a40;
-            color: #fff;
-            transition: all 0.3s;
-            overflow-y: auto;
-        }
+      .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 250px; /* Default sidebar width */
+    background: linear-gradient(to bottom, #1e2233, #121520); /* Darker gradient */
+    color: #fff;
+    transition: all 0.3s ease;
+    overflow-y: auto;
+    z-index: 99;
+}
+.sidebar .nav-item .collapse {
+    background-color: #181b2a; /* Darker submenu background */
+}
+
+
         .sidebar .nav-link {
             color: #fff;
         }
@@ -87,6 +94,7 @@ $totalCosts_json = json_encode(array_reverse($totalCosts));
         .container {
             padding: 80px;
         }
+        
     </style>
 </head>
 <body>

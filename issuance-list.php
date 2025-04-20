@@ -282,6 +282,10 @@
 <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap5.min.js"></script>
 
+<!-- SweetAlert2 CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 <script>
     $(document).ready(function() {
         // Initialize DataTables
@@ -349,7 +353,6 @@ document.addEventListener('DOMContentLoaded', function() {
   console.log("Fetched data:", fetchedData); // For verification
 </script>
 
-
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const viewBtns = document.querySelectorAll('.viewBtn');
@@ -414,6 +417,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <tr>
                 <td><img src="${imgSrc}" alt="Item Image" class="img-thumbnail" style="max-width: 80px;"></td>
                 <td>${row.description}</td>
+                <td style="display:none;">${row.dateAcquired}</td>
                 <td>${row.refNo}</td>
                 <td>₱${parseFloat(row.unitValue).toFixed(2)}</td>
                 <td>${row.itemInstanceCode}</td>
@@ -425,10 +429,47 @@ document.addEventListener('DOMContentLoaded', () => {
           let footerHTML = `
             <div class="modal-footer bg-light fixed-footer">
               <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary proceedBtn" id="proceedBtn" data-issuance-id="${header.issuanceReviewNo}">Proceed</button>
+              <button type="button" class="btn btn-primary" id="proceedBtn" data-issuance-id="${header.issuanceReviewNo}">Proceed</button>
             </div>`;
 
           document.querySelector('#modalBodyContent').innerHTML = headerHTML + tableHTML + footerHTML;
+
+          // Set up event listener for the Proceed button
+          setTimeout(() => {
+            const proceedBtn = document.getElementById('proceedBtn');
+            if (proceedBtn) {
+              proceedBtn.addEventListener('click', () => {
+                const issuanceData = {
+                  issuanceReviewNo: header.issuanceReviewNo,
+                  date: header.date,
+                  time: header.time,
+                  issuedBy: header.issuedBy,
+                  issuedByDate: header.issuedByDate,
+                  receivedBy: header.receivedBy,
+                  receivedByDate: header.receivedByDate,
+                  postedBy: header.postedBy,
+                  postedByDate: header.postedByDate,
+                  status: header.status,
+                  departmentName: header.departmentName,
+                  items: itemRows.map(row => ({
+                    itemNo: row.itemNo,
+                    image: row.image,
+                    description: row.description,
+                    dateAcquired: row.dateAcquired,
+                    refNo: row.refNo,
+                    unitValue: row.unitValue,
+                    itemInstanceCode: row.itemInstanceCode
+                  }))
+                };
+
+                localStorage.setItem('selectedIssuance', JSON.stringify(issuanceData));
+                console.log('Issuance data stored to localStorage:', issuanceData);
+
+                // Optional: Redirect or trigger next step
+                // window.location.href = 'next-page.php';
+              });
+            }
+          }, 0);
         }
 
         const nextModal = new bootstrap.Modal(document.getElementById('viewModal'));
@@ -444,8 +485,9 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 
+
 <script>
-  document.addEventListener("click", function (e) {
+  document.addEventListener("DOMContentLoaded", function () {
     const currentModal = document.getElementById("viewModal");
     const currentModalContent = document.getElementById("currentModalContent");
     const nextModalEl = document.getElementById("nextModal");
@@ -454,72 +496,52 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentInstance = bootstrap.Modal.getOrCreateInstance(currentModal);
     const nextInstance = bootstrap.Modal.getOrCreateInstance(nextModalEl);
 
-    // Proceed: Fade out to the left
-    if (e.target && e.target.id === "proceedBtn") {
-      currentModalContent.classList.add("fade-left-out");
-
-      setTimeout(() => {
-        currentInstance.hide();
-        currentModalContent.classList.remove("fade-left-out");
-
-        // Show next modal
-        nextInstance.show();
-      }, 500);
-    }
-
-    // Back: Fade out next modal to right, then show previous
-    if (e.target && e.target.id === "backBtn") {
-      nextModalDialog.classList.add("fade-right-out");
-
-      setTimeout(() => {
-        nextInstance.hide();
-        nextModalDialog.classList.remove("fade-right-out");
-
-        // Show previous modal with fade-in
-        currentModalContent.classList.add("fade-in");
-        currentInstance.show();
+    document.addEventListener("click", function (e) {
+      // Check if Proceed button was clicked
+      if (e.target.matches("#proceedBtn") || e.target.closest("#proceedBtn")) {
+        currentModalContent.classList.add("fade-left-out");
 
         setTimeout(() => {
-          currentModalContent.classList.remove("fade-in");
+          currentInstance.hide();
+          currentModalContent.classList.remove("fade-left-out");
+
+          // Show next modal
+          nextInstance.show();
         }, 500);
-      }, 500);
-    }
-  });
-</script>
+      }
 
+      // Check if Back button was clicked
+      if (e.target.matches("#backBtn") || e.target.closest("#backBtn")) {
+        nextModalDialog.classList.add("fade-right-out");
 
-<script>
-document.querySelector('.proceedBtn')?.addEventListener('click', async function () {
-  const issuanceId = this.getAttribute('data-issuance-id');
+        setTimeout(() => {
+          nextInstance.hide();
+          nextModalDialog.classList.remove("fade-right-out");
 
-  try {
-    const response = await fetch(`backend/fetch-property-accountability-to-confirm.php?id=${issuanceId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
+          // Show previous modal with fade-in
+          currentModalContent.classList.add("fade-in");
+          currentInstance.show();
+
+          setTimeout(() => {
+            currentModalContent.classList.remove("fade-in");
+          }, 500);
+        }, 500);
       }
     });
 
-    if (!response.ok) throw new Error('Failed to fetch data.');
+    // Clean up modal backdrop if user closes via X or backdrop
+    nextModalEl.addEventListener("hidden.bs.modal", function () {
+      document.body.classList.remove("modal-open");
+      const backdrop = document.querySelector(".modal-backdrop");
+      if (backdrop) backdrop.remove();
+    });
 
-    const result = await response.json();
-
-    // Debugging: log the HTML result from the backend
-    console.log('Fetched HTML result:', result);
-
-    // Inject HTML into the second modal's body
-    const nextModalBody = document.querySelector('#nextModal .modal-body');
-    nextModalBody.innerHTML = result.html;
-
-    // Show the next modal
-    const nextModal = new bootstrap.Modal(document.getElementById('nextModal'));
-    nextModal.show();
-
-  } catch (error) {
-    console.error('Error loading modal content:', error);
-    alert('An error occurred while loading the confirmation modal.');
-  }
-});
+    currentModal.addEventListener("hidden.bs.modal", function () {
+      document.body.classList.remove("modal-open");
+      const backdrop = document.querySelector(".modal-backdrop");
+      if (backdrop) backdrop.remove();
+    });
+  });
 </script>
 
 

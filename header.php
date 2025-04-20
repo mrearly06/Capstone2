@@ -65,8 +65,9 @@ if (isset($_SESSION['userID'])) {
     .navbar {
     height: 60px; /* Adjust the navbar height if needed */
     
-    background-color: rgb(2, 64, 151) !important; /* Slightly transparent green */
-    box-shadow: 0 0 5px 0 black;
+    background: linear-gradient(120deg, #4f2c91 0%, #5c7cfa 100%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);    box-shadow: 0 0 5px 0 black;
   z-index: 1;
     position:fixed;
     width:100%;

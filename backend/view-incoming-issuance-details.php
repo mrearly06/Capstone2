@@ -19,10 +19,12 @@ $query = "SELECT
     d.departmentName,
     ii.itemInstanceID,
     ii.itemInstanceCode,
+    i.itemNo,
     i.quantity,
     i.description,
     i.dateAcquired,
     i.unitValue,
+    i.totalValue,
     i.image
 FROM issuance_review ir
 LEFT JOIN user u1 ON ir.issuedBy = u1.userID

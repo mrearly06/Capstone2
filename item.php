@@ -25,6 +25,8 @@ if (!$result) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
+     <!------ Custom Style   ------------------------------>
+     <link rel="stylesheet" type="text/css" href="assets/css/index-style.css">
    
     <!-- Include DataTables CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">

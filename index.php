@@ -136,71 +136,101 @@
     <?php require "backend/session-sidebar.php"; ?>
     
     <?php require "header.php"; ?>
-    
-    <div class="main-content">
-    <div class="container-fluid w-100" style="margin-top:100px; max-height: 100vh;">
-        <div class="row align-items-center">
-            <div class="col-md-12 d-flex justify-content-center right-side">
-                <div class="card bg-transparent border border-0" style="width: 110%; max-height: 100vh;">
-                    <img src="image/homep-bg.jpg" alt="Card Image" class="img-fluid" style="max-width: 105%; border-radius: 10px;margin-left:-10px;margin-right:-16px;height:1000px;">
+
+<!-- Main Content Section with Gradient Background -->
+<div class="main-content" style="
+    background: linear-gradient(to bottom, #ffffff, rgb(220,220,220));
+    backdrop-filter: blur(12px) saturate(120%);
+    -webkit-backdrop-filter: blur(12px) saturate(120%);
+    padding: 3rem 0;
+">
+    <div class="container px-4 text-center">
+
+        <!-- Title Section Without Card -->
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-10">
+                <div class="card-body" style="
+                    margin-top:60px;
+                    background: transparent;
+                ">
+                    <h1 class="fw-bold mb-3" style="font-size: 2.2rem; font-family: 'Mochiy Pop P One', sans-serif; color: #333;">
+                        Inventory Management and Property Accountability
+                    </h1>
+                    <p class="lead" style="font-size: 1.1rem; color: #555;">
+                        for Divine Word College of Legazpi
+                    </p>
+                    <p style="color: #666;">
+                        Your all-in-one Property Accountability and Inventory Management System.<br>
+                        Track, manage, and report with accuracy and ease.
+                    </p>
                 </div>
             </div>
-            
         </div>
+
+        <!-- 3D Feature Cards -->
+        <div class="row text-center">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100" style="
+                    border: none;
+                    border-radius: 20px;
+                    background: #ffffff;
+                    padding: 20px;
+                    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+                    transition: transform 0.3s ease, box-shadow 0.3s ease;
+                " onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 35px rgba(0,0,0,0.2)'" onmouseout="this.style.transform=''; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.15)'">
+                    <div class="card-body">
+                        <img src="image/Spreadsheets-amico.png" alt="Inventory Overview" class="img-fluid mb-3" style="max-height: 120px;">
+                        <h5 class="card-title fw-bold mb-2">Inventory Overview</h5>
+                        <p class="card-text">View all assets, quantities, and categories in one place.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100" style="
+                    border: none;
+                    border-radius: 20px;
+                    background: #ffffff;
+                    padding: 20px;
+                    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+                    transition: transform 0.3s ease, box-shadow 0.3s ease;
+                " onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 35px rgba(0,0,0,0.2)'" onmouseout="this.style.transform=''; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.15)'">
+                    <div class="card-body">
+                        <img src="image/Spreadsheets-bro.png" alt="Smart Reports" class="img-fluid mb-3" style="max-height: 120px;">
+                        <h5 class="card-title fw-bold mb-2">Smart Reports</h5>
+                        <p class="card-text">Auto-generate reports for audits, requests, and tracking.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100" style="
+                    border: none;
+                    border-radius: 20px;
+                    background: #ffffff;
+                    padding: 20px;
+                    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+                    transition: transform 0.3s ease, box-shadow 0.3s ease;
+                " onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 35px rgba(0,0,0,0.2)'" onmouseout="this.style.transform=''; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.15)'">
+                    <div class="card-body">
+                        <img src="image/Search engines-amico.png" alt="User-Friendly Interface" class="img-fluid mb-3" style="max-height: 120px;">
+                        <h5 class="card-title fw-bold mb-2">User-Friendly Interface</h5>
+                        <p class="card-text">Designed for a seamless experience at all user levels.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
+
+
+
+
+
+
   
     <!-- Bootstrap JS and Popper -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Slider Script with Flip Effect and Auto-Sliding -->
-    <script>
-        let currentSlide = 0;
-        let flipInterval;
-
-        // Texts corresponding to each slide
-        const slideTexts = [
-            "Streamlining your asset tracking and inventory processes for maximum efficiency.",
-            "Efficiently track, manage, and report your inventory with our comprehensive system.",
-            "Ensure every asset is tracked, managed, and accounted for with precision."
-        ];
-
-        function showSlide(index) {
-            const slides = document.querySelector('.slides');
-            const totalSlides = slides.children.length;
-            currentSlide = (index + totalSlides) % totalSlides;
-            
-            // Update the text based on the current slide index
-            document.getElementById('slide-text').textContent = slideTexts[currentSlide];
-
-            // Add flip class for effect
-            slides.classList.add('flip');
-            slides.style.transform = `translateX(-${currentSlide * 100}%)`;
-            
-            // Remove flip class after the animation duration
-            setTimeout(() => {
-                slides.classList.remove('flip');
-            }, 600); // Match the CSS transition duration
-        }
-
-        function nextSlide() {
-            showSlide(currentSlide + 1);
-        }
-
-        function prevSlide() {
-            showSlide(currentSlide - 1);
-        }
-
-        function startAutoSlide() {
-            flipInterval = setInterval(nextSlide, 6000); // Slide every 6 seconds
-        }
-
-        function stopAutoSlide() {
-            clearInterval(flipInterval);
-        }
-
-        // Start auto-sliding on page load
-        window.onload = startAutoSlide;
-    </script>
+  
 </body>
 </html>

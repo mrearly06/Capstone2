@@ -44,9 +44,11 @@
             background-color: #f1f3f5; /* Slightly gray header */
         }
         .title-logo {
-            background-color: #3e4348; 
+            background-color: #2d3145;
             padding: 1rem;
-            filter: saturate(1.2); /* Increase saturation by 20% */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         /* Custom CSS to remove bottom margin from list groups */
         .list-group-item {

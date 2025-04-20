@@ -96,17 +96,22 @@ if (!$resultInventory || !$resultIssuance || !$resultAssetRequest) {
 
     <style>
          .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 250px;
-            background-color: #343a40; /* Sidebar color */
-            color: #fff;
-            transition: all 0.3s;
-            overflow-y: auto;
-        
-        }
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 250px; /* Default sidebar width */
+    background: linear-gradient(to bottom, #1e2233, #121520); /* Darker gradient */
+    color: #fff;
+    transition: all 0.3s ease;
+    overflow-y: auto;
+    z-index: 99;
+}
+.sidebar .nav-item .collapse {
+    background-color: #181b2a; /* Darker submenu background */
+}
+
+
         .sidebar .nav-link {
             color: #fff;
         }

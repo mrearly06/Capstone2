@@ -36,7 +36,7 @@
                 <i class="fas fa-chevron-down ms-auto" style="font-size:12px;"></i>
             </a>
             <ul class="collapse list-unstyled ms-4" id="usersCollapse">
-                <li><a class="nav-link" href="employee.php">Employee</a></li>
+             <!--   <li><a class="nav-link" href="employee.php">Employee</a></li> -->
                 <li><a class="nav-link" href="user-list.php">User's List</a></li>
                 <li><a class="nav-link" href="issuance-list.php">Issuance List</a></li>
             </ul>
@@ -58,7 +58,7 @@
             </a>
             <ul class="collapse list-unstyled ms-4" id="requestCollapse">
             <li><a class="nav-link" href="incoming-asset-request-supply-office.php">Incoming Asset Request</a></li>
-                <li><a class="nav-link" href="incoming-issuance-request.php">Incoming Issuance Request</a></li>
+              <!--  <li><a class="nav-link" href="incoming-issuance-request.php">Incoming Issuance Request</a></li> -->
                 <li><a class="nav-link" href="request-list-supply-office.php">Request List</a></li>
                 <!-- Add more items here if needed -->
             </ul>

@@ -88,7 +88,7 @@ if (!$resultInventory || !$resultIssuance || !$resultAssetRequest) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventory Requests</title>
 
-  
+   <!------ Custom Style   ------------------------------>
     <!-- Include DataTables CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
@@ -104,17 +104,22 @@ body {
     overflow-y: auto;
 }
 .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 250px;
-            background-color: #343a40; /* Sidebar color */
-            color: #fff;
-            transition: all 0.3s;
-            overflow-y: auto;
-        
-        }
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 250px; /* Default sidebar width */
+    background: linear-gradient(to bottom, #1e2233, #121520); /* Darker gradient */
+    color: #fff;
+    transition: all 0.3s ease;
+    overflow-y: auto;
+    z-index: 99;
+}
+.sidebar .nav-item .collapse {
+    background-color: #181b2a; /* Darker submenu background */
+}
+
+
         .sidebar .nav-link {
             color: #fff;
         }
@@ -142,9 +147,11 @@ body {
             background-color: #f1f3f5; /* Slightly gray header */
         }
         .title-logo {
-            background-color: #3e4348; 
+            background-color: #2d3145;
             padding: 1rem;
-            filter: saturate(1.2); /* Increase saturation by 20% */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     .btn-group {
         position: relative;

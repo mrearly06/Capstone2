@@ -21,7 +21,7 @@
                 <i class="fas fa-chevron-down ms-auto" style="font-size:12px;"></i>
             </a>
             <ul class="collapse list-unstyled ms-4" id="inventoryCollapse">
-                <li><a class="nav-link" href="item.php">Items/Equipments</a></li>
+               <!-- <li><a class="nav-link" href="item.php">Items/Equipments</a></li>  --->
                 <li><a class="nav-link" href="item-list.php">Inventory List</a></li>
             </ul>
         </li>
